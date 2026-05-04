@@ -1,6 +1,6 @@
 {
   "name": "human-steerkit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Human steers. Agent builds. The AI agent starter kit.",
   "main": "dist/index.js",
   "bin": {
@@ -41,5 +41,13 @@
     "tsup": "^8.5.1",
     "typescript": "^6.0.3",
     "vitest": "^4.1.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ssthil/human-steerkit.git"
+  },
+  "homepage": "https://github.com/ssthil/human-steerkit#readme",
+  "bugs": {
+    "url": "https://github.com/ssthil/human-steerkit/issues"
   }
 }

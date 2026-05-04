@@ -1,0 +1,45 @@
+{
+  "name": "human-steerkit",
+  "version": "0.1.0",
+  "description": "Human steers. Agent builds. The AI agent starter kit.",
+  "main": "dist/index.js",
+  "bin": {
+    "hsk": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup && cp -r src/templates dist/",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "cli",
+    "productivity",
+    "cursor",
+    "claude",
+    "copilot",
+    "prompt",
+    "human-steerkit"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@inquirer/prompts": "^8.4.2",
+    "commander": "^14.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.5"
+  }
+}

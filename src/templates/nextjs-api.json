@@ -1,0 +1,105 @@
+{
+  "name": "nextjs-api",
+  "stack": "Next.js + API Routes",
+  "description": "Next.js app with built-in API routes, TypeScript, Tailwind",
+  "tasks": [
+    {
+      "name": "Project scaffold",
+      "reads": ["PROJECT.md", "DECISIONS.md"],
+      "builds": "package.json, tsconfig.json, tailwind.config.ts, next.config.ts",
+      "description": "Initialise the Next.js project with TypeScript and Tailwind, pin all dependencies, and configure tsconfig paths and next.config for the project",
+      "credits": 8
+    },
+    {
+      "name": "TypeScript types and interfaces",
+      "reads": ["PROJECT.md", "DECISIONS.md"],
+      "builds": "lib/types.ts",
+      "description": "Define all shared TypeScript interfaces and types for request payloads, API responses, and domain objects as described in PROJECT.md",
+      "credits": 10
+    },
+    {
+      "name": "API route utilities",
+      "reads": ["PROJECT.md", "lib/types.ts"],
+      "builds": "lib/api-utils.ts",
+      "description": "Implement reusable helpers for API route handlers including input validation, error response formatting, and typed response wrappers",
+      "credits": 8
+    },
+    {
+      "name": "Database helper",
+      "reads": ["PROJECT.md", "DECISIONS.md", "lib/types.ts"],
+      "builds": "lib/db.ts",
+      "description": "Set up better-sqlite3 connection, create tables on startup, and export typed query helpers for all entities needed by the application",
+      "credits": 12
+    },
+    {
+      "name": "Main API route",
+      "reads": ["PROJECT.md", "lib/types.ts", "lib/db.ts", "lib/api-utils.ts"],
+      "builds": "app/api/analyze/route.ts",
+      "description": "Implement the primary POST API route that validates the request body, runs the core business logic, and returns a fully typed JSON response",
+      "credits": 15
+    },
+    {
+      "name": "Health route",
+      "reads": ["lib/api-utils.ts"],
+      "builds": "app/api/health/route.ts",
+      "description": "Add a GET /api/health route that returns status ok and the current timestamp, used to verify the server is running",
+      "credits": 3
+    },
+    {
+      "name": "API tests",
+      "reads": ["app/api/analyze/route.ts", "lib/types.ts"],
+      "builds": "tests/api.test.ts",
+      "description": "Write vitest tests for the analyze route covering valid inputs, invalid inputs, missing fields, and expected response shapes",
+      "credits": 12
+    },
+    {
+      "name": "Frontend page scaffold",
+      "reads": ["PROJECT.md", "DECISIONS.md", "lib/types.ts"],
+      "builds": "app/page.tsx, lib/client.ts",
+      "description": "Create the root Next.js page with layout, a typed fetch client module, and placeholder sections for the form and result components",
+      "credits": 8
+    },
+    {
+      "name": "Main form component",
+      "reads": ["PROJECT.md", "lib/types.ts", "app/page.tsx"],
+      "builds": "components/AnalyzeForm.tsx",
+      "description": "Build a controlled React form that collects all required user inputs, validates them client-side, and exposes an onSubmit callback with typed data",
+      "credits": 12
+    },
+    {
+      "name": "Result display component",
+      "reads": ["PROJECT.md", "lib/types.ts", "app/page.tsx"],
+      "builds": "components/ResultCard.tsx",
+      "description": "Build a result card component that renders all fields from the API response in a structured readable layout using Tailwind",
+      "credits": 12
+    },
+    {
+      "name": "Charts component",
+      "reads": ["components/ResultCard.tsx", "lib/types.ts"],
+      "builds": "components/MetricsChart.tsx",
+      "description": "Add a chart component that visualises the key numeric metrics from the API response using a lightweight charting library",
+      "credits": 14
+    },
+    {
+      "name": "Loading and error states",
+      "reads": ["app/page.tsx", "components/AnalyzeForm.tsx"],
+      "builds": "updated app/page.tsx",
+      "description": "Add loading indicator during API calls and inline error message when the fetch fails or the API returns an error status, updating page.tsx in place",
+      "credits": 7
+    },
+    {
+      "name": "Integration test",
+      "reads": ["PROJECT.md", "app/api/analyze/route.ts", "tests/api.test.ts"],
+      "builds": "tests/integration.test.ts",
+      "description": "Write an end-to-end test that sends a real HTTP request to the Next.js API route and asserts the full response shape and key field values",
+      "credits": 10
+    },
+    {
+      "name": "Bug sweep and freeze",
+      "reads": ["app/page.tsx", "lib/types.ts", "lib/client.ts", "app/api/analyze/route.ts", "lib/db.ts"],
+      "builds": "fixed issues list",
+      "description": "Review all listed files for type errors, missing error handling, and broken imports then output every fix applied with file and line references",
+      "credits": 12
+    }
+  ]
+}

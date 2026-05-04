@@ -1,0 +1,6 @@
+{
+  "name": "blank",
+  "stack": "Custom",
+  "description": "Empty template. Add your own tasks following the TASKS.md schema.",
+  "tasks": []
+}

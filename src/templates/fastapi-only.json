@@ -1,0 +1,91 @@
+{
+  "name": "fastapi-only",
+  "stack": "FastAPI + SQLite",
+  "description": "Python FastAPI backend with SQLite, schemas, services, tests",
+  "tasks": [
+    {
+      "name": "Backend scaffold",
+      "reads": ["PROJECT.md", "DECISIONS.md"],
+      "builds": "app/main.py, requirements.txt",
+      "description": "Create the FastAPI app with CORS middleware, a health check route, and a requirements.txt with all dependencies pinned to exact versions",
+      "credits": 8
+    },
+    {
+      "name": "Pydantic schemas",
+      "reads": ["PROJECT.md", "app/main.py"],
+      "builds": "app/schemas.py",
+      "description": "Define all Pydantic v2 request and response models for every endpoint described in PROJECT.md with field validators where required",
+      "credits": 10
+    },
+    {
+      "name": "Database layer",
+      "reads": ["PROJECT.md", "DECISIONS.md", "app/schemas.py"],
+      "builds": "app/database.py",
+      "description": "Implement SQLite connection management, table creation on startup, and typed CRUD helper functions for all entities in the project",
+      "credits": 14
+    },
+    {
+      "name": "Core service module",
+      "reads": ["PROJECT.md", "app/schemas.py", "app/database.py"],
+      "builds": "app/services/core.py",
+      "description": "Implement the primary business logic service with all calculation and transformation functions operating on validated Pydantic objects",
+      "credits": 20
+    },
+    {
+      "name": "Core service tests",
+      "reads": ["app/services/core.py", "app/schemas.py"],
+      "builds": "tests/test_core.py",
+      "description": "Write pytest unit tests for every function in core.py covering expected outputs, edge cases, and invalid input handling",
+      "credits": 12
+    },
+    {
+      "name": "Secondary service module",
+      "reads": ["PROJECT.md", "app/schemas.py", "app/services/core.py"],
+      "builds": "app/services/secondary.py",
+      "description": "Implement the supporting service that extends or composes core logic to produce the remaining outputs described in PROJECT.md",
+      "credits": 15
+    },
+    {
+      "name": "Secondary service tests",
+      "reads": ["app/services/secondary.py", "app/schemas.py"],
+      "builds": "tests/test_secondary.py",
+      "description": "Write pytest unit tests for every function in secondary.py including boundary conditions and composition with core service outputs",
+      "credits": 10
+    },
+    {
+      "name": "Main endpoint wiring",
+      "reads": ["app/main.py", "app/schemas.py", "app/services/core.py", "app/services/secondary.py"],
+      "builds": "POST /analyze endpoint in app/main.py",
+      "description": "Wire the main POST endpoint in main.py to call parsing, core, and secondary services in sequence and return the complete typed response",
+      "credits": 12
+    },
+    {
+      "name": "Data seeding script",
+      "reads": ["PROJECT.md", "app/database.py", "app/schemas.py"],
+      "builds": "scripts/seed.py",
+      "description": "Create a script that populates the SQLite database with realistic sample data for local development and testing",
+      "credits": 8
+    },
+    {
+      "name": "Integration tests",
+      "reads": ["PROJECT.md", "app/main.py", "tests/test_core.py"],
+      "builds": "tests/test_integration.py",
+      "description": "Write pytest integration tests using TestClient that send real HTTP requests and assert response shapes, status codes, and key field values",
+      "credits": 12
+    },
+    {
+      "name": "API documentation check",
+      "reads": ["app/main.py", "app/schemas.py"],
+      "builds": "updated app/main.py with tags and descriptions",
+      "description": "Add OpenAPI tags, operation summaries, and response descriptions to all routes so the /docs page is complete and accurate",
+      "credits": 6
+    },
+    {
+      "name": "Bug sweep and freeze",
+      "reads": ["app/main.py", "app/schemas.py", "app/database.py", "app/services/core.py", "app/services/secondary.py"],
+      "builds": "fixed issues list",
+      "description": "Review all listed files for type mismatches, unhandled exceptions, and missing validations then output every fix applied with file and line references",
+      "credits": 12
+    }
+  ]
+}

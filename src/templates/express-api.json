@@ -1,0 +1,91 @@
+{
+  "name": "express-api",
+  "stack": "Node.js + Express + SQLite",
+  "description": "Express REST API with SQLite, TypeScript, services, tests",
+  "tasks": [
+    {
+      "name": "Project scaffold",
+      "reads": ["PROJECT.md", "DECISIONS.md"],
+      "builds": "package.json, tsconfig.json, src/app.ts, src/server.ts",
+      "description": "Initialise the Express project with TypeScript, pin all dependencies, configure tsconfig, and create the app and server entry points",
+      "credits": 8
+    },
+    {
+      "name": "TypeScript types",
+      "reads": ["PROJECT.md", "DECISIONS.md"],
+      "builds": "src/types.ts",
+      "description": "Define all TypeScript interfaces for request bodies, response objects, database rows, and service inputs and outputs described in PROJECT.md",
+      "credits": 10
+    },
+    {
+      "name": "Database setup",
+      "reads": ["PROJECT.md", "DECISIONS.md", "src/types.ts"],
+      "builds": "src/db.ts",
+      "description": "Set up better-sqlite3, create all tables on startup, and export typed query helpers for every entity the application needs",
+      "credits": 12
+    },
+    {
+      "name": "Core service module",
+      "reads": ["PROJECT.md", "src/types.ts", "src/db.ts"],
+      "builds": "src/services/core.ts",
+      "description": "Implement the primary business logic with all calculation and data transformation functions operating on typed inputs and returning typed results",
+      "credits": 18
+    },
+    {
+      "name": "Core service tests",
+      "reads": ["src/services/core.ts", "src/types.ts"],
+      "builds": "tests/core.test.ts",
+      "description": "Write vitest unit tests for every function in core.ts covering expected outputs, edge cases, and error conditions",
+      "credits": 12
+    },
+    {
+      "name": "Secondary service module",
+      "reads": ["PROJECT.md", "src/types.ts", "src/services/core.ts"],
+      "builds": "src/services/secondary.ts",
+      "description": "Implement the supporting service that extends or composes the core service to produce the remaining business outputs described in PROJECT.md",
+      "credits": 14
+    },
+    {
+      "name": "Secondary service tests",
+      "reads": ["src/services/secondary.ts", "src/types.ts"],
+      "builds": "tests/secondary.test.ts",
+      "description": "Write vitest unit tests for every function in secondary.ts including boundary cases and composition with core service outputs",
+      "credits": 10
+    },
+    {
+      "name": "Express routes",
+      "reads": ["PROJECT.md", "src/app.ts", "src/types.ts", "src/services/core.ts", "src/services/secondary.ts"],
+      "builds": "src/routes/api.ts",
+      "description": "Define all Express route handlers, wire them to the service functions, and mount them on the app with the correct HTTP methods and paths",
+      "credits": 14
+    },
+    {
+      "name": "Middleware",
+      "reads": ["src/app.ts", "src/types.ts", "src/routes/api.ts"],
+      "builds": "src/middleware/errorHandler.ts, src/middleware/validate.ts",
+      "description": "Implement a global error handler middleware and a request validation middleware that checks required fields and returns typed error responses",
+      "credits": 10
+    },
+    {
+      "name": "Integration tests",
+      "reads": ["PROJECT.md", "src/app.ts", "src/routes/api.ts", "src/types.ts"],
+      "builds": "tests/integration.test.ts",
+      "description": "Write vitest integration tests using supertest that send HTTP requests to the Express app and assert status codes, response shapes, and field values",
+      "credits": 12
+    },
+    {
+      "name": "README and API docs",
+      "reads": ["PROJECT.md", "DECISIONS.md", "src/routes/api.ts"],
+      "builds": "README.md",
+      "description": "Write a README with setup instructions, environment variables, and a full list of API endpoints with request and response examples",
+      "credits": 6
+    },
+    {
+      "name": "Bug sweep and freeze",
+      "reads": ["src/app.ts", "src/types.ts", "src/db.ts", "src/routes/api.ts", "src/services/core.ts"],
+      "builds": "fixed issues list",
+      "description": "Review all listed files for type errors, unhandled promise rejections, and missing middleware wiring then output every fix with file and line references",
+      "credits": 12
+    }
+  ]
+}

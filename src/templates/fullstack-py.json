@@ -1,0 +1,147 @@
+{
+  "name": "fullstack-py",
+  "stack": "Next.js + FastAPI + SQLite",
+  "description": "Full stack web app with Next.js frontend and FastAPI backend",
+  "tasks": [
+    {
+      "name": "Backend scaffold",
+      "reads": ["PROJECT.md", "DECISIONS.md"],
+      "builds": "backend/app/main.py, backend/requirements.txt",
+      "description": "Create the FastAPI app entry point with CORS configured, a health check route, and a requirements.txt with all backend dependencies pinned",
+      "credits": 8
+    },
+    {
+      "name": "Pydantic schemas",
+      "reads": ["PROJECT.md", "backend/app/main.py"],
+      "builds": "backend/app/schemas.py",
+      "description": "Define all Pydantic request and response models needed for the API based on the data shapes described in PROJECT.md",
+      "credits": 10
+    },
+    {
+      "name": "Data loader",
+      "reads": ["PROJECT.md", "backend/app/schemas.py"],
+      "builds": "backend/app/data_loader.py",
+      "description": "Implement functions to load and validate input data from uploaded files or request payloads using the Pydantic schemas",
+      "credits": 10
+    },
+    {
+      "name": "Metrics engine",
+      "reads": ["PROJECT.md", "backend/app/schemas.py"],
+      "builds": "backend/app/services/metrics.py",
+      "description": "Implement all metric calculation functions as described in PROJECT.md, operating on validated schema objects and returning typed results",
+      "credits": 20
+    },
+    {
+      "name": "Metrics tests",
+      "reads": ["backend/app/services/metrics.py"],
+      "builds": "backend/tests/test_metrics.py",
+      "description": "Write pytest unit tests for every function in metrics.py covering normal inputs, edge cases, and expected output values",
+      "credits": 12
+    },
+    {
+      "name": "Scoring engine",
+      "reads": ["PROJECT.md", "DECISIONS.md", "backend/app/schemas.py", "backend/app/services/metrics.py"],
+      "builds": "backend/app/services/scoring.py",
+      "description": "Implement the scoring logic that aggregates metric outputs into a final score or rating according to the rules in PROJECT.md and DECISIONS.md",
+      "credits": 18
+    },
+    {
+      "name": "Scoring tests",
+      "reads": ["backend/app/services/scoring.py"],
+      "builds": "backend/tests/test_scoring.py",
+      "description": "Write pytest unit tests for every scoring function covering boundary conditions, weighting logic, and expected score outputs",
+      "credits": 10
+    },
+    {
+      "name": "Alternatives engine",
+      "reads": ["PROJECT.md", "backend/app/schemas.py", "backend/app/data_loader.py"],
+      "builds": "backend/app/services/alternatives.py",
+      "description": "Implement logic to find and rank alternative options based on the criteria and data structures defined in PROJECT.md",
+      "credits": 15
+    },
+    {
+      "name": "Alternatives tests",
+      "reads": ["backend/app/services/alternatives.py"],
+      "builds": "backend/tests/test_alternatives.py",
+      "description": "Write pytest unit tests for the alternatives engine covering ranking logic, tie-breaking, and empty result cases",
+      "credits": 8
+    },
+    {
+      "name": "Parsing service",
+      "reads": ["PROJECT.md", "backend/app/schemas.py", "backend/app/data_loader.py"],
+      "builds": "backend/app/services/parsing.py",
+      "description": "Implement input parsing and normalisation functions that transform raw user input into validated schema objects ready for analysis",
+      "credits": 12
+    },
+    {
+      "name": "Analyze endpoint",
+      "reads": ["backend/app/main.py", "backend/app/schemas.py", "backend/app/services/metrics.py", "backend/app/services/scoring.py", "backend/app/services/alternatives.py", "backend/app/services/parsing.py"],
+      "builds": "POST /analyze-fund endpoint",
+      "description": "Wire the POST /analyze-fund route in main.py to call parsing, metrics, scoring, and alternatives services and return a complete typed response",
+      "credits": 15
+    },
+    {
+      "name": "Frontend scaffold",
+      "reads": ["PROJECT.md", "DECISIONS.md"],
+      "builds": "frontend/app/page.tsx, frontend/lib/api.ts, frontend/lib/types.ts",
+      "description": "Create the Next.js app shell with a root page, a typed API client module, and shared TypeScript types mirroring the backend response schemas",
+      "credits": 10
+    },
+    {
+      "name": "Analyze form",
+      "reads": ["PROJECT.md", "frontend/lib/types.ts", "frontend/app/page.tsx"],
+      "builds": "frontend/components/AnalyzeForm.tsx",
+      "description": "Build a controlled form component that collects all required user inputs, validates them client-side, and calls the API client on submit",
+      "credits": 12
+    },
+    {
+      "name": "Result card",
+      "reads": ["PROJECT.md", "frontend/lib/types.ts", "frontend/app/page.tsx"],
+      "builds": "frontend/components/ResultCard.tsx",
+      "description": "Build a result display component that renders all analysis output fields from the API response in a clear, structured layout",
+      "credits": 12
+    },
+    {
+      "name": "Charts",
+      "reads": ["frontend/components/ResultCard.tsx", "frontend/lib/types.ts"],
+      "builds": "frontend/components/MetricsChart.tsx",
+      "description": "Add a chart component inside ResultCard that visualises the key metrics data using a lightweight charting library already in the project",
+      "credits": 15
+    },
+    {
+      "name": "Disclaimer component",
+      "reads": ["PROJECT.md", "DECISIONS.md", "frontend/app/page.tsx"],
+      "builds": "frontend/components/Disclaimer.tsx",
+      "description": "Create a disclaimer component with the required legal or contextual notice text from PROJECT.md and render it on the main page",
+      "credits": 5
+    },
+    {
+      "name": "Loading and error states",
+      "reads": ["frontend/app/page.tsx", "frontend/components/AnalyzeForm.tsx"],
+      "builds": "updated frontend/app/page.tsx",
+      "description": "Add loading spinner during API calls and error message display when the API returns an error or the request fails, updating page.tsx in place",
+      "credits": 8
+    },
+    {
+      "name": "Connect frontend to backend",
+      "reads": ["frontend/lib/api.ts", "frontend/app/page.tsx", "backend/app/main.py"],
+      "builds": "wired frontend-backend",
+      "description": "Configure the API client base URL, verify the request and response shapes match, and confirm end-to-end data flow from form submission to result display",
+      "credits": 10
+    },
+    {
+      "name": "Integration test",
+      "reads": ["PROJECT.md", "backend/app/main.py", "backend/tests/test_metrics.py"],
+      "builds": "backend/tests/test_integration.py",
+      "description": "Write a pytest integration test that sends a real HTTP request to the running FastAPI app and asserts the full response shape and key field values",
+      "credits": 12
+    },
+    {
+      "name": "Bug sweep and freeze",
+      "reads": ["backend/app/main.py", "backend/app/schemas.py", "frontend/app/page.tsx", "frontend/lib/api.ts", "frontend/lib/types.ts"],
+      "builds": "fixed issues list",
+      "description": "Review all listed files for type mismatches, missing error handling, and broken imports then output a list of every fix applied with file and line references",
+      "credits": 15
+    }
+  ]
+}

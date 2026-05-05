@@ -31,7 +31,7 @@ var require_package = __commonJS({
   "package.json"(exports2, module2) {
     module2.exports = {
       name: "human-steerkit",
-      version: "0.1.0",
+      version: "0.1.2",
       description: "Human steers. Agent builds. The AI agent starter kit.",
       main: "dist/index.js",
       bin: {
@@ -72,6 +72,14 @@ var require_package = __commonJS({
         tsup: "^8.5.1",
         typescript: "^6.0.3",
         vitest: "^4.1.5"
+      },
+      repository: {
+        type: "git",
+        url: "git+https://github.com/ssthil/human-steerkit.git"
+      },
+      homepage: "https://github.com/ssthil/human-steerkit#readme",
+      bugs: {
+        url: "https://github.com/ssthil/human-steerkit/issues"
       }
     };
   }

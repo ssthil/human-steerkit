@@ -31,7 +31,7 @@ var require_package = __commonJS({
   "package.json"(exports2, module2) {
     module2.exports = {
       name: "human-steerkit",
-      version: "0.1.2",
+      version: "0.2.0",
       description: "Human steers. Agent builds. The AI agent starter kit.",
       main: "dist/index.js",
       bin: {
@@ -49,7 +49,7 @@ var require_package = __commonJS({
         "README.md"
       ],
       engines: {
-        node: ">=18.0.0"
+        node: ">=20.0.0"
       },
       keywords: [
         "ai",

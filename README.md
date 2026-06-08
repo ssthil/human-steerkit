@@ -8,10 +8,6 @@ Every wasted AI agent credit comes from the same root causes: the agent re-disco
 [![CI](https://github.com/ssthil/human-steerkit/actions/workflows/ci.yml/badge.svg)](https://github.com/ssthil/human-steerkit/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Demo
-
-![hsk demo](demo/demo.gif)
-
 ## Installation
 
 ```bash

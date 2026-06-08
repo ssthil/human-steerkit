@@ -41,6 +41,7 @@ var require_package = __commonJS({
         build: "tsup && cp -r src/templates dist/",
         dev: "tsup --watch",
         test: "vitest",
+        lint: "eslint src/ tests/",
         prepublishOnly: "npm run build && npm test"
       },
       files: [
@@ -55,10 +56,18 @@ var require_package = __commonJS({
         "agent",
         "cli",
         "productivity",
+        "claude-code",
         "cursor",
-        "claude",
         "copilot",
+        "windsurf",
+        "codex",
         "prompt",
+        "prompt-engineering",
+        "llm",
+        "token",
+        "agentic",
+        "task-management",
+        "ai-tools",
         "human-steerkit"
       ],
       author: "",
@@ -68,9 +77,12 @@ var require_package = __commonJS({
         commander: "^14.0.3"
       },
       devDependencies: {
+        "@eslint/js": "^10.0.1",
         "@types/node": "^25.6.0",
+        eslint: "^10.4.1",
         tsup: "^8.5.1",
         typescript: "^6.0.3",
+        "typescript-eslint": "^8.60.1",
         vitest: "^4.1.5"
       },
       repository: {
@@ -101,7 +113,7 @@ async function readFile(filePath) {
   } catch (err) {
     const code = err.code;
     if (code === "ENOENT") {
-      throw new Error(`File not found: ${filePath}`);
+      throw new Error(`File not found: ${filePath}`, { cause: err });
     }
     throw err;
   }
@@ -177,7 +189,7 @@ async function getStatus(projectRoot) {
 }
 
 // src/commands/init.ts
-var STACKS = ["fullstack-py", "nextjs-api", "fastapi-only", "express-api", "blank"];
+var STACKS = ["fullstack-py", "nextjs-api", "nextjs-app-router", "supabase", "fastapi-only", "express-api", "blank"];
 var AGENTS = ["Claude Code", "Cursor", "Copilot", "MinMax", "Windsurf", "Other"];
 async function loadTemplate(stack) {
   const templatePath = import_path3.default.join(__dirname, "templates", `${stack}.json`);
@@ -408,10 +420,30 @@ function formatTaskSummary(task) {
   return `Task ${task.id}: ${task.name} [${state}]`;
 }
 
+// src/utils/clipboard.ts
+var import_child_process = require("child_process");
+function copyToClipboard(text) {
+  try {
+    if (process.platform === "darwin") {
+      (0, import_child_process.spawnSync)("pbcopy", { input: text });
+    } else if (process.platform === "win32") {
+      (0, import_child_process.spawnSync)("clip", { input: text });
+    } else {
+      const xclip = (0, import_child_process.spawnSync)("xclip", ["-selection", "clipboard"], { input: text });
+      if (xclip.status !== 0) {
+        (0, import_child_process.spawnSync)("xsel", ["--clipboard", "--input"], { input: text });
+      }
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 // src/commands/task.ts
 var SEP = "\u2500".repeat(60);
 function registerTask(program2) {
-  program2.command("task <n>").description("Generate a bounded agent prompt for task number n").action(async (nStr) => {
+  program2.command("task <n>").description("Generate a bounded agent prompt for task number n").option("--copy", "copy the prompt to clipboard").action(async (nStr, opts) => {
     const n = parseInt(nStr, 10);
     if (isNaN(n)) {
       console.error(`Error: "${nStr}" is not a valid task number`);
@@ -431,6 +463,10 @@ ${formatTaskSummary(task)}
       console.log(SEP);
       console.log(prompt);
       console.log(SEP);
+      if (opts.copy) {
+        const ok = copyToClipboard(prompt);
+        console.log(ok ? "\nPrompt copied to clipboard." : "\nCould not copy to clipboard.");
+      }
     } catch (err) {
       console.error(`Error: ${err.message}`);
       process.exit(1);
@@ -442,7 +478,7 @@ ${formatTaskSummary(task)}
 var import_path5 = __toESM(require("path"));
 var SEP2 = "\u2500".repeat(60);
 function registerNext(program2) {
-  program2.command("next").description("Find the first unchecked task and output its prompt").action(async () => {
+  program2.command("next").description("Find the first unchecked task and output its prompt").option("--copy", "copy the prompt to clipboard").action(async (opts) => {
     try {
       const tasks = await parseTasks(import_path5.default.join(process.cwd(), "TASKS.md"));
       const task = getNextPendingTask(tasks);
@@ -457,6 +493,10 @@ ${formatTaskSummary(task)}
       console.log(SEP2);
       console.log(prompt);
       console.log(SEP2);
+      if (opts.copy) {
+        const ok = copyToClipboard(prompt);
+        console.log(ok ? "\nPrompt copied to clipboard." : "\nCould not copy to clipboard.");
+      }
     } catch (err) {
       console.error(`Error: ${err.message}`);
       process.exit(1);
@@ -732,6 +772,130 @@ function registerBudget(program2) {
   });
 }
 
+// src/commands/add.ts
+var import_path10 = __toESM(require("path"));
+var import_prompts2 = require("@inquirer/prompts");
+function buildTaskBlock(id, name, reads, builds, description, credits) {
+  return [
+    `## Task ${id}: ${name}`,
+    `reads: ${reads.join(", ")}`,
+    `builds: ${builds}`,
+    `description: ${description}`,
+    `credits: ${credits}`,
+    `status: [ ]`
+  ].join("\n");
+}
+function registerAdd(program2) {
+  program2.command("add").description("Interactively add a new task to TASKS.md").action(async () => {
+    const tasksPath = import_path10.default.join(process.cwd(), "TASKS.md");
+    let nextId = 1;
+    if (await fileExists(tasksPath)) {
+      try {
+        const existing = await parseTasks(tasksPath);
+        if (existing.length > 0) {
+          nextId = Math.max(...existing.map((t) => t.id)) + 1;
+        }
+      } catch {
+      }
+    }
+    console.log(`
+Adding Task ${nextId}
+`);
+    const name = await (0, import_prompts2.input)({ message: "Task name:" });
+    const readsRaw = await (0, import_prompts2.input)({ message: "Files to read (comma-separated):" });
+    const reads = readsRaw.split(",").map((s) => s.trim()).filter(Boolean);
+    const builds = await (0, import_prompts2.input)({ message: "Output (file or description):" });
+    const description = await (0, import_prompts2.input)({ message: "Task description:" });
+    const credits = await (0, import_prompts2.number)({ message: "Estimated credits:", default: 10 }) ?? 10;
+    const block = buildTaskBlock(nextId, name, reads, builds, description, credits);
+    if (await fileExists(tasksPath)) {
+      const content = await readFile(tasksPath);
+      const separator = content.endsWith("\n\n") ? "" : content.endsWith("\n") ? "\n" : "\n\n";
+      await writeFile(tasksPath, content + separator + block + "\n");
+    } else {
+      await writeFile(tasksPath, `# TASKS.md
+
+${block}
+`);
+    }
+    console.log(`
+Task ${nextId} added to TASKS.md`);
+  });
+}
+
+// src/commands/report.ts
+var import_path11 = __toESM(require("path"));
+var G2 = "\x1B[32m";
+var Y2 = "\x1B[33m";
+var R2 = "\x1B[31m";
+var X2 = "\x1B[0m";
+function pad(s, n) {
+  return s.length >= n ? s.slice(0, n) : s + " ".repeat(n - s.length);
+}
+function deltaStr(actual, est) {
+  const d = actual - est;
+  if (d > 0) return `${R2}+${d}${X2}`;
+  if (d < 0) return `${G2}${d}${X2}`;
+  return "0";
+}
+function registerReport(program2) {
+  program2.command("report").description("Show per-task credit breakdown: estimates vs actuals").action(async () => {
+    const cwd = process.cwd();
+    const tasksPath = import_path11.default.join(cwd, "TASKS.md");
+    if (!await fileExists(tasksPath)) {
+      console.error("TASKS.md not found \u2014 run hsk init first");
+      process.exit(1);
+    }
+    let tasks;
+    try {
+      tasks = await parseTasks(tasksPath);
+    } catch (err) {
+      console.error(`Error reading TASKS.md: ${err.message}`);
+      process.exit(1);
+    }
+    let budget = null;
+    try {
+      budget = await getBudget(cwd);
+    } catch {
+    }
+    const SEP4 = "\u2500".repeat(56);
+    console.log("\n" + pad(" #", 4) + "  " + pad("Task", 24) + "  " + pad("Est", 5) + "  " + pad("Actual", 7) + "  Delta");
+    console.log(SEP4);
+    let totalEst = 0;
+    let totalActual = 0;
+    let hasActuals = false;
+    for (const task of tasks) {
+      const entry = budget?.tasks[String(task.id)];
+      const actual = entry?.actual ?? null;
+      const est = task.credits;
+      totalEst += est;
+      const mark = task.status ? `${G2}\u2713${X2}` : " ";
+      const actualCol = actual !== null ? pad(String(actual), 7) : pad("\u2014", 7);
+      const deltaCol = actual !== null ? deltaStr(actual, est) : "\u2014";
+      if (actual !== null) {
+        hasActuals = true;
+        totalActual += actual;
+      }
+      console.log(
+        `${mark} ${pad(String(task.id), 2)}  ${pad(task.name, 24)}  ${pad(String(est), 5)}  ${actualCol}  ${deltaCol}`
+      );
+    }
+    console.log(SEP4);
+    const totalActualCol = hasActuals ? pad(String(totalActual), 7) : pad("\u2014", 7);
+    const totalDeltaCol = hasActuals ? deltaStr(totalActual, totalEst) : "\u2014";
+    console.log(`  ${pad("", 2)}  ${pad("Total", 24)}  ${pad(String(totalEst), 5)}  ${totalActualCol}  ${totalDeltaCol}`);
+    if (budget) {
+      const pct = budget.total > 0 ? Math.round(budget.spent / budget.total * 100) : 0;
+      let col = G2;
+      if (budget.budgetStatus === "AT RISK") col = Y2;
+      if (budget.budgetStatus === "OVER BUDGET") col = R2;
+      console.log(`
+Budget: ${budget.spent} / ${budget.total} credits (${pct}%)  ${col}${budget.budgetStatus}${X2}`);
+    }
+    console.log("");
+  });
+}
+
 // src/index.ts
 var { version } = require_package();
 var program = new import_commander.Command();
@@ -743,5 +907,7 @@ registerStatus(program);
 registerCheck(program);
 registerSpend(program);
 registerBudget(program);
+registerAdd(program);
+registerReport(program);
 program.name("hsk").description("Human steers. Agent builds. The AI agent starter kit.").version(version);
 program.parse();

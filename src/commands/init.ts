@@ -5,7 +5,7 @@ import { writeFile, fileExists } from '../utils/fs';
 import { initBudget } from '../core/tracker';
 import { TemplateTask } from '../types';
 
-const STACKS = ['fullstack-py', 'nextjs-api', 'fastapi-only', 'express-api', 'blank'] as const;
+const STACKS = ['fullstack-py', 'nextjs-api', 'nextjs-app-router', 'supabase', 'fastapi-only', 'express-api', 'blank'] as const;
 const AGENTS = ['Claude Code', 'Cursor', 'Copilot', 'MinMax', 'Windsurf', 'Other'] as const;
 
 interface BlankTemplate {
@@ -15,7 +15,6 @@ interface BlankTemplate {
 async function loadTemplate(stack: string): Promise<TemplateTask[]> {
   const templatePath = path.join(__dirname, 'templates', `${stack}.json`);
   if (await fileExists(templatePath)) {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const tpl = require(templatePath) as BlankTemplate;
     return tpl.tasks ?? [];
   }

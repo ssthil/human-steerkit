@@ -7,7 +7,7 @@ export async function readFile(filePath: string): Promise<string> {
   } catch (err: unknown) {
     const code = (err as NodeJS.ErrnoException).code;
     if (code === 'ENOENT') {
-      throw new Error(`File not found: ${filePath}`);
+      throw new Error(`File not found: ${filePath}`, { cause: err });
     }
     throw err;
   }

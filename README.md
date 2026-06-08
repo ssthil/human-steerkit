@@ -5,6 +5,7 @@ Human steers. Agent builds.
 Every wasted AI agent credit comes from the same root causes: the agent re-discovers scope it was never told, scans files it did not need to read, debates architecture mid-task, or receives a vague prompt that triggers long back-and-forth output. human-steerkit eliminates all of these before the agent starts — by giving you a structured planning layer that turns your project into a sequence of bounded, file-scoped prompts the agent can execute without guessing.
 
 [![npm version](https://badge.fury.io/js/human-steerkit.svg)](https://www.npmjs.com/package/human-steerkit)
+[![CI](https://github.com/ssthil/human-steerkit/actions/workflows/ci.yml/badge.svg)](https://github.com/ssthil/human-steerkit/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Installation
@@ -24,10 +25,12 @@ npx human-steerkit init
 ```bash
 hsk init                      # answer 6 questions, scaffold your project files
 hsk next                      # get a bounded prompt for the next pending task
+hsk next --copy               # same, and copy the prompt straight to clipboard
 # paste prompt into your agent, run the task
 hsk done 1                    # mark task 1 complete
 hsk spend 1 12                # record 12 credits used on task 1
 hsk status                    # see progress and budget summary
+hsk report                    # per-task credit breakdown: estimates vs actuals
 ```
 
 ## How it works
@@ -44,9 +47,13 @@ hsk status                    # see progress and budget summary
 |---|---|
 | `hsk init` | Interactive wizard — scaffolds project files and folder structure |
 | `hsk task <n>` | Generate bounded agent prompt for task number n |
+| `hsk task <n> --copy` | Generate prompt and copy it to clipboard |
 | `hsk next` | Find first pending task and output its prompt |
+| `hsk next --copy` | Find next task, output prompt, and copy to clipboard |
+| `hsk add` | Interactively add a new task to TASKS.md |
 | `hsk done <n>` | Mark task n complete in TASKS.md |
 | `hsk status` | Show task progress and budget summary |
+| `hsk report` | Per-task credit breakdown: estimates vs actuals |
 | `hsk check` | Scan project for credit-wasting patterns |
 | `hsk spend <n> <credits>` | Record actual credits used for task n |
 | `hsk budget <total>` | Set total credit budget |
@@ -56,7 +63,9 @@ hsk status                    # see progress and budget summary
 | Template | Stack | Tasks |
 |---|---|---|
 | `fullstack-py` | Next.js + FastAPI + SQLite | 20 |
+| `nextjs-app-router` | Next.js App Router + Prisma + TypeScript | 12 |
 | `nextjs-api` | Next.js + API Routes + TypeScript | 14 |
+| `supabase` | Next.js App Router + Supabase | 12 |
 | `fastapi-only` | FastAPI + SQLite | 12 |
 | `express-api` | Node.js + Express + SQLite | 12 |
 | `blank` | Any stack | 0 |

@@ -10,6 +10,7 @@
     "build": "tsup && cp -r src/templates dist/",
     "dev": "tsup --watch",
     "test": "vitest",
+    "lint": "eslint src/ tests/",
     "prepublishOnly": "npm run build && npm test"
   },
   "files": [
@@ -24,10 +25,18 @@
     "agent",
     "cli",
     "productivity",
+    "claude-code",
     "cursor",
-    "claude",
     "copilot",
+    "windsurf",
+    "codex",
     "prompt",
+    "prompt-engineering",
+    "llm",
+    "token",
+    "agentic",
+    "task-management",
+    "ai-tools",
     "human-steerkit"
   ],
   "author": "",
@@ -37,9 +46,12 @@
     "commander": "^14.0.3"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/node": "^25.6.0",
+    "eslint": "^10.4.1",
     "tsup": "^8.5.1",
     "typescript": "^6.0.3",
+    "typescript-eslint": "^8.60.1",
     "vitest": "^4.1.5"
   },
   "repository": {

@@ -1,0 +1,15 @@
+node_modules/
+dist/
+
+# runtime state created by hsk in target projects
+.hsk/
+
+# logs
+npm-debug.log*
+*.log
+
+# macOS
+.DS_Store
+
+# test coverage
+coverage/

@@ -1,0 +1,91 @@
+{
+  "name": "nextjs-app-router",
+  "stack": "Next.js App Router + TypeScript + Tailwind",
+  "description": "Next.js 14+ with App Router, Server Components, Server Actions, Prisma, and Tailwind",
+  "tasks": [
+    {
+      "name": "Project scaffold",
+      "reads": ["PROJECT.md", "DECISIONS.md"],
+      "builds": "package.json, tsconfig.json, next.config.ts, tailwind.config.ts, postcss.config.mjs",
+      "description": "Initialise Next.js 14 with TypeScript, Tailwind CSS, and the App Router. Pin all dependency versions. Configure tsconfig paths and next.config for the project goals defined in PROJECT.md.",
+      "credits": 8
+    },
+    {
+      "name": "TypeScript types",
+      "reads": ["PROJECT.md", "DECISIONS.md"],
+      "builds": "lib/types.ts",
+      "description": "Define all shared TypeScript interfaces and types for domain objects, API payloads, and form data based on the data model described in PROJECT.md.",
+      "credits": 8
+    },
+    {
+      "name": "Database schema and client",
+      "reads": ["PROJECT.md", "DECISIONS.md", "lib/types.ts"],
+      "builds": "prisma/schema.prisma, lib/db.ts",
+      "description": "Write the Prisma schema for all entities. Export a singleton PrismaClient from lib/db.ts with connection pooling safe for Next.js hot reload.",
+      "credits": 12
+    },
+    {
+      "name": "Server Actions",
+      "reads": ["PROJECT.md", "lib/types.ts", "lib/db.ts"],
+      "builds": "lib/actions.ts",
+      "description": "Implement all Server Actions for create, read, update, and delete operations. Add input validation and typed return values for each action.",
+      "credits": 15
+    },
+    {
+      "name": "Auth setup",
+      "reads": ["PROJECT.md", "DECISIONS.md", "lib/types.ts", "lib/db.ts"],
+      "builds": "auth.ts, middleware.ts, app/api/auth/[...nextauth]/route.ts",
+      "description": "Configure NextAuth v5 with the providers specified in DECISIONS.md. Set up the middleware to protect routes. Export typed auth helpers.",
+      "credits": 14
+    },
+    {
+      "name": "Root layout and navigation",
+      "reads": ["PROJECT.md", "lib/types.ts", "auth.ts"],
+      "builds": "app/layout.tsx, app/globals.css, components/nav.tsx",
+      "description": "Build the root layout with metadata, global styles, and navigation component. Navigation must show authenticated user state using auth helpers.",
+      "credits": 10
+    },
+    {
+      "name": "Auth pages",
+      "reads": ["PROJECT.md", "auth.ts", "app/layout.tsx"],
+      "builds": "app/login/page.tsx, app/login/actions.ts",
+      "description": "Build the sign-in page using NextAuth signIn. Include form validation, error display, and redirect to the main page after successful login.",
+      "credits": 8
+    },
+    {
+      "name": "Core feature server component",
+      "reads": ["PROJECT.md", "lib/types.ts", "lib/db.ts", "auth.ts"],
+      "builds": "app/(main)/page.tsx",
+      "description": "Build the primary page as a Server Component. Fetch data directly using Prisma. Pass typed props to client components. Apply Tailwind layout.",
+      "credits": 14
+    },
+    {
+      "name": "Core feature client components",
+      "reads": ["PROJECT.md", "lib/types.ts", "lib/actions.ts", "app/(main)/page.tsx"],
+      "builds": "components/feature-form.tsx, components/feature-list.tsx",
+      "description": "Build the interactive client components for the main feature. Use Server Actions for mutations. Optimistic updates where appropriate. No third-party state libraries.",
+      "credits": 16
+    },
+    {
+      "name": "Error and loading states",
+      "reads": ["PROJECT.md", "app/(main)/page.tsx"],
+      "builds": "app/error.tsx, app/loading.tsx, app/(main)/error.tsx, app/(main)/loading.tsx",
+      "description": "Add error boundary and loading skeleton components for root and main route segments. Error components must include a retry action.",
+      "credits": 6
+    },
+    {
+      "name": "API route handlers",
+      "reads": ["PROJECT.md", "lib/types.ts", "lib/db.ts", "auth.ts"],
+      "builds": "app/api/route.ts",
+      "description": "Implement any REST API routes needed for external consumers or webhooks as defined in PROJECT.md. Validate auth on all protected routes.",
+      "credits": 10
+    },
+    {
+      "name": "Deploy config",
+      "reads": ["PROJECT.md", "DECISIONS.md", "package.json", "prisma/schema.prisma"],
+      "builds": ".env.example, README.md (setup section)",
+      "description": "Write .env.example listing all required environment variables with placeholder values. Add a deploy section to README.md covering environment setup and database migration steps.",
+      "credits": 5
+    }
+  ]
+}

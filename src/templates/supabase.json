@@ -1,0 +1,91 @@
+{
+  "name": "supabase",
+  "stack": "Next.js App Router + Supabase + TypeScript + Tailwind",
+  "description": "Next.js 14+ with Supabase for database, auth, and storage. App Router, Server Components, and Tailwind.",
+  "tasks": [
+    {
+      "name": "Project scaffold",
+      "reads": ["PROJECT.md", "DECISIONS.md"],
+      "builds": "package.json, tsconfig.json, next.config.ts, tailwind.config.ts",
+      "description": "Initialise Next.js 14 with TypeScript, Tailwind, and the App Router. Install @supabase/supabase-js and @supabase/ssr. Pin all dependency versions.",
+      "credits": 8
+    },
+    {
+      "name": "Supabase client setup",
+      "reads": ["PROJECT.md", "DECISIONS.md"],
+      "builds": "lib/supabase/client.ts, lib/supabase/server.ts, lib/supabase/middleware.ts",
+      "description": "Create browser client, server client (using @supabase/ssr), and middleware client following the official Supabase Next.js SSR guide. Export typed helpers for both environments.",
+      "credits": 10
+    },
+    {
+      "name": "Database schema",
+      "reads": ["PROJECT.md", "DECISIONS.md"],
+      "builds": "supabase/migrations/001_initial.sql",
+      "description": "Write the initial SQL migration for all tables, indexes, and RLS policies defined in PROJECT.md. Enable Row Level Security on every table. Include seed data if needed.",
+      "credits": 14
+    },
+    {
+      "name": "TypeScript types from schema",
+      "reads": ["PROJECT.md", "supabase/migrations/001_initial.sql"],
+      "builds": "lib/types/database.ts, lib/types/index.ts",
+      "description": "Define TypeScript types that mirror the database schema. Export domain types separate from raw database row types. Include helper types for insert and update payloads.",
+      "credits": 8
+    },
+    {
+      "name": "Auth middleware and helpers",
+      "reads": ["PROJECT.md", "lib/supabase/server.ts", "lib/supabase/middleware.ts"],
+      "builds": "middleware.ts, lib/auth.ts",
+      "description": "Configure the Next.js middleware to refresh Supabase sessions on every request. Export server-side auth helpers to get the current user in Server Components and Route Handlers.",
+      "credits": 10
+    },
+    {
+      "name": "Core data access layer",
+      "reads": ["PROJECT.md", "lib/types/index.ts", "lib/supabase/server.ts", "supabase/migrations/001_initial.sql"],
+      "builds": "lib/data.ts",
+      "description": "Implement typed query functions for all CRUD operations using the Supabase server client. Each function should handle errors and return typed results. No raw SQL outside migrations.",
+      "credits": 14
+    },
+    {
+      "name": "Root layout and navigation",
+      "reads": ["PROJECT.md", "lib/auth.ts", "lib/types/index.ts"],
+      "builds": "app/layout.tsx, app/globals.css, components/nav.tsx",
+      "description": "Build the root layout with metadata, Tailwind global styles, and navigation. Navigation must display authenticated user state fetched from Supabase server-side.",
+      "credits": 8
+    },
+    {
+      "name": "Auth pages",
+      "reads": ["PROJECT.md", "lib/supabase/client.ts", "app/layout.tsx"],
+      "builds": "app/auth/login/page.tsx, app/auth/callback/route.ts",
+      "description": "Build login page with Supabase Auth UI or custom form. Implement the OAuth callback route handler. Redirect to main app after successful authentication.",
+      "credits": 10
+    },
+    {
+      "name": "Core feature server component",
+      "reads": ["PROJECT.md", "lib/data.ts", "lib/auth.ts", "lib/types/index.ts"],
+      "builds": "app/(dashboard)/page.tsx",
+      "description": "Build the main dashboard page as a Server Component. Fetch data using the data access layer. Protect with auth redirect if user is not authenticated.",
+      "credits": 12
+    },
+    {
+      "name": "Core feature client components",
+      "reads": ["PROJECT.md", "lib/types/index.ts", "lib/supabase/client.ts", "app/(dashboard)/page.tsx"],
+      "builds": "components/feature-form.tsx, components/feature-list.tsx",
+      "description": "Build interactive client components for the main feature. Use Supabase realtime subscriptions where appropriate. Forms should handle loading and error states without third-party libraries.",
+      "credits": 16
+    },
+    {
+      "name": "File storage integration",
+      "reads": ["PROJECT.md", "DECISIONS.md", "lib/supabase/server.ts", "lib/types/index.ts"],
+      "builds": "lib/storage.ts, components/file-upload.tsx",
+      "description": "Implement Supabase Storage helpers for file upload, signed URL generation, and deletion. Build a file upload component with progress state. Only include if PROJECT.md requires file uploads.",
+      "credits": 12
+    },
+    {
+      "name": "Deploy config",
+      "reads": ["PROJECT.md", "DECISIONS.md", "package.json"],
+      "builds": ".env.example, README.md (setup section)",
+      "description": "Write .env.example with NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, and any other required vars. Document Supabase project setup and migration steps in README.",
+      "credits": 5
+    }
+  ]
+}

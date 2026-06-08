@@ -8,8 +8,9 @@ import { registerStatus } from './commands/status';
 import { registerCheck } from './commands/check';
 import { registerSpend } from './commands/spend';
 import { registerBudget } from './commands/budget';
+import { registerAdd } from './commands/add';
+import { registerReport } from './commands/report';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { version } = require('../package.json') as { version: string };
 
 const program = new Command();
@@ -22,6 +23,8 @@ registerStatus(program);
 registerCheck(program);
 registerSpend(program);
 registerBudget(program);
+registerAdd(program);
+registerReport(program);
 
 program
   .name('hsk')

@@ -1,91 +1,76 @@
-# Generate with: vhs demo/demo.tape
-# Install vhs:   brew install vhs
+# Generate with: brew install vhs && vhs demo/demo.tape
+# Requires hsk to be installed: npm install -g human-steerkit
 
 Output demo/demo.gif
 
 Set Shell "bash"
 Set FontSize 13
 Set Width 1100
-Set Height 620
+Set Height 640
 Set Theme "Dracula"
 Set Padding 24
-Set TypingSpeed 60ms
+Set TypingSpeed 55ms
 
-# ── Intro pause ───────────────────────────────────────────
-Sleep 500ms
+# Clean up any previous demo run (hidden)
+Hide
+Type "rm -rf /tmp/my-project"
+Enter
+Sleep 300ms
+Show
 
-# ── hsk init ──────────────────────────────────────────────
+Ctrl+L
+Sleep 300ms
+
+# ── Set up a fresh project directory ─────────────────────
+Type "cd /tmp && mkdir my-project && cd my-project"
+Enter
+Sleep 700ms
+
+# ── hsk init ─────────────────────────────────────────────
 Type "hsk init"
 Enter
-Sleep 1s
+Sleep 1200ms
 
-# Project name
 Type "my-saas-app"
 Enter
-Sleep 400ms
+Sleep 500ms
 
-# One-line goal
 Type "SaaS app for managing client invoices"
 Enter
-Sleep 400ms
+Sleep 500ms
 
-# Stack — arrow to nextjs-app-router (3rd option)
+# Stack — Down x2 → nextjs-app-router
 Down
 Down
 Enter
-Sleep 400ms
+Sleep 500ms
 
-# Agent tool — Claude Code (1st option)
+# Agent tool — Claude Code
 Enter
-Sleep 400ms
+Sleep 500ms
 
 # Budget
 Type "200"
 Enter
-Sleep 400ms
+Sleep 500ms
 
 # Confirm
 Enter
-Sleep 1500ms
+Sleep 2000ms
 
 # ── hsk next --copy ───────────────────────────────────────
 Type "hsk next --copy"
 Enter
-Sleep 1500ms
+Sleep 2000ms
+
+# ── hsk done 1 ────────────────────────────────────────────
+Type "hsk done 1"
+Enter
+Sleep 800ms
 
 # ── hsk status ────────────────────────────────────────────
 Type "hsk status"
 Enter
-Sleep 1000ms
-
-# ── hsk add ───────────────────────────────────────────────
-Type "hsk add"
-Enter
-Sleep 800ms
-
-Type "Write unit tests for parser"
-Enter
-Sleep 300ms
-
-Type "src/core/parser.ts, tests/fixtures/tasks.md"
-Enter
-Sleep 300ms
-
-Type "tests/parser.test.ts"
-Enter
-Sleep 300ms
-
-Type "Write vitest unit tests covering parseTasks, getTask, and getNextPendingTask using fixture files"
-Enter
-Sleep 300ms
-
-Type "8"
-Enter
 Sleep 1200ms
 
-# ── Final status ──────────────────────────────────────────
-Type "hsk report"
-Enter
-Sleep 1000ms
-
-Sleep 2s
+Sleep 2500ms

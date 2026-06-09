@@ -2,6 +2,18 @@
 
 ![human-steerkit — Human steers. Agent builds.](.github/banner.svg)
 
+<p align="center">
+  <strong>Every wasted AI agent credit traces back to the same root causes:</strong><br/><br/>
+  the agent re-discovers scope it was never told &nbsp;·&nbsp;
+  scans files it did not need to read &nbsp;·&nbsp;
+  debates architecture mid-task &nbsp;·&nbsp;
+  receives a vague prompt and outputs long back-and-forth
+  <br/><br/>
+  <strong>human-steerkit</strong> eliminates all of these <em>before</em> the agent starts —
+  turning your project into a sequence of bounded, file-scoped prompts
+  the agent can execute without guessing.
+</p>
+
 [![npm version](https://badge.fury.io/js/human-steerkit.svg)](https://www.npmjs.com/package/human-steerkit)
 [![npm downloads](https://img.shields.io/npm/dw/human-steerkit.svg)](https://www.npmjs.com/package/human-steerkit)
 [![CI](https://github.com/ssthil/human-steerkit/actions/workflows/ci.yml/badge.svg)](https://github.com/ssthil/human-steerkit/actions/workflows/ci.yml)

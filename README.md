@@ -1,8 +1,6 @@
 # human-steerkit
 
-Human steers. Agent builds.
-
-Every wasted AI agent credit comes from the same root causes: the agent re-discovers scope it was never told, scans files it did not need to read, debates architecture mid-task, or receives a vague prompt that triggers long back-and-forth output. human-steerkit eliminates all of these before the agent starts — by giving you a structured planning layer that turns your project into a sequence of bounded, file-scoped prompts the agent can execute without guessing.
+![human-steerkit — Human steers. Agent builds.](.github/banner.svg)
 
 [![npm version](https://badge.fury.io/js/human-steerkit.svg)](https://www.npmjs.com/package/human-steerkit)
 [![npm downloads](https://img.shields.io/npm/dw/human-steerkit.svg)](https://www.npmjs.com/package/human-steerkit)

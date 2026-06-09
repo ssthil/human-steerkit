@@ -1,0 +1,111 @@
+<svg width="1280" height="400" viewBox="0 0 1280 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#0f0f1a"/>
+      <stop offset="100%" stop-color="#1a0f2e"/>
+    </linearGradient>
+    <linearGradient id="topbar" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="400" fill="url(#bg)"/>
+
+  <!-- Top accent bar -->
+  <rect width="1280" height="4" fill="url(#topbar)"/>
+
+  <!-- Package name -->
+  <text x="640" y="108"
+        text-anchor="middle"
+        font-family="ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace"
+        font-size="54" font-weight="700" letter-spacing="-1"
+        fill="#e2e8f0">human-steerkit</text>
+
+  <!-- Tagline -->
+  <text x="640" y="150"
+        text-anchor="middle"
+        font-family="ui-sans-serif, system-ui, -apple-system, sans-serif"
+        font-size="19" letter-spacing="1"
+        fill="#7c3aed">HUMAN STEERS.  AGENT BUILDS.</text>
+
+  <!-- Separator -->
+  <rect x="80" y="185" width="1120" height="1" fill="#1e1e3f"/>
+
+  <!-- ── Pillar 1 ─────────────────────────────────────── -->
+  <rect x="80" y="205" width="360" height="158" rx="10" fill="#111127" stroke="#2a2a4a" stroke-width="1"/>
+
+  <!-- icon circle -->
+  <circle cx="114" cy="237" r="14" fill="#7c3aed" fill-opacity="0.2"/>
+  <text x="114" y="242" text-anchor="middle"
+        font-family="ui-monospace, monospace" font-size="14" fill="#a78bfa">⬡</text>
+
+  <text x="138" y="242"
+        font-family="ui-monospace, 'Cascadia Code', monospace"
+        font-size="13" font-weight="600" fill="#a78bfa">Human plans, agent executes</text>
+
+  <text x="100" y="270"
+        font-family="ui-sans-serif, system-ui, sans-serif"
+        font-size="12.5" fill="#64748b">Architecture decisions, task sequence, and</text>
+  <text x="100" y="289"
+        font-family="ui-sans-serif, system-ui, sans-serif"
+        font-size="12.5" fill="#64748b">file scope are locked before the agent</text>
+  <text x="100" y="308"
+        font-family="ui-sans-serif, system-ui, sans-serif"
+        font-size="12.5" fill="#64748b">touches any code. The agent never decides</text>
+  <text x="100" y="327"
+        font-family="ui-sans-serif, system-ui, sans-serif"
+        font-size="12.5" fill="#64748b">what to do next.</text>
+
+  <!-- ── Pillar 2 ─────────────────────────────────────── -->
+  <rect x="460" y="205" width="360" height="158" rx="10" fill="#111127" stroke="#2a2a4a" stroke-width="1"/>
+
+  <circle cx="494" cy="237" r="14" fill="#7c3aed" fill-opacity="0.2"/>
+  <text x="494" y="242" text-anchor="middle"
+        font-family="ui-monospace, monospace" font-size="14" fill="#a78bfa">⬡</text>
+
+  <text x="518" y="242"
+        font-family="ui-monospace, 'Cascadia Code', monospace"
+        font-size="13" font-weight="600" fill="#a78bfa">Bounded context</text>
+
+  <text x="480" y="270"
+        font-family="ui-sans-serif, system-ui, sans-serif"
+        font-size="12.5" fill="#64748b">Every prompt lists only the files the agent</text>
+  <text x="480" y="289"
+        font-family="ui-sans-serif, system-ui, sans-serif"
+        font-size="12.5" fill="#64748b">needs to read. No src/, no root directories,</text>
+  <text x="480" y="308"
+        font-family="ui-sans-serif, system-ui, sans-serif"
+        font-size="12.5" fill="#64748b">no open-ended exploration. Scope is defined</text>
+  <text x="480" y="327"
+        font-family="ui-sans-serif, system-ui, sans-serif"
+        font-size="12.5" fill="#64748b">before the agent starts.</text>
+
+  <!-- ── Pillar 3 ─────────────────────────────────────── -->
+  <rect x="840" y="205" width="360" height="158" rx="10" fill="#111127" stroke="#2a2a4a" stroke-width="1"/>
+
+  <circle cx="874" cy="237" r="14" fill="#7c3aed" fill-opacity="0.2"/>
+  <text x="874" y="242" text-anchor="middle"
+        font-family="ui-monospace, monospace" font-size="14" fill="#a78bfa">⬡</text>
+
+  <text x="898" y="242"
+        font-family="ui-monospace, 'Cascadia Code', monospace"
+        font-size="13" font-weight="600" fill="#a78bfa">Manual tracking by design</text>
+
+  <text x="860" y="270"
+        font-family="ui-sans-serif, system-ui, sans-serif"
+        font-size="12.5" fill="#64748b">Credits and progress are tracked manually.</text>
+  <text x="860" y="289"
+        font-family="ui-sans-serif, system-ui, sans-serif"
+        font-size="12.5" fill="#64748b">No API connections, no automatic monitoring</text>
+  <text x="860" y="308"
+        font-family="ui-sans-serif, system-ui, sans-serif"
+        font-size="12.5" fill="#64748b">— the developer stays in control of every</text>
+  <text x="860" y="327"
+        font-family="ui-sans-serif, system-ui, sans-serif"
+        font-size="12.5" fill="#64748b">decision.</text>
+
+  <!-- Bottom bar -->
+  <rect y="396" width="1280" height="4" fill="url(#topbar)"/>
+</svg>

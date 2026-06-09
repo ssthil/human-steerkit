@@ -1,23 +1,35 @@
-# human-steerkit
-
-![human-steerkit — Human steers. Agent builds.](.github/banner.svg)
+# 🧭 human-steerkit
 
 <p align="center">
-  <strong>Every wasted AI agent credit traces back to the same root causes:</strong><br/><br/>
-  the agent re-discovers scope it was never told &nbsp;·&nbsp;
-  scans files it did not need to read &nbsp;·&nbsp;
-  debates architecture mid-task &nbsp;·&nbsp;
-  receives a vague prompt and outputs long back-and-forth
-  <br/><br/>
-  <strong>human-steerkit</strong> eliminates all of these <em>before</em> the agent starts —
-  turning your project into a sequence of bounded, file-scoped prompts
-  the agent can execute without guessing.
+  <strong>Human steers. Agent builds.</strong><br/>
+  The CLI toolkit for developers who want AI agents to execute, not explore.
 </p>
 
-[![npm version](https://badge.fury.io/js/human-steerkit.svg)](https://www.npmjs.com/package/human-steerkit)
-[![npm downloads](https://img.shields.io/npm/dw/human-steerkit.svg)](https://www.npmjs.com/package/human-steerkit)
-[![CI](https://github.com/ssthil/human-steerkit/actions/workflows/ci.yml/badge.svg)](https://github.com/ssthil/human-steerkit/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<p align="center">
+  <a href="https://www.npmjs.com/package/human-steerkit">npm</a> ·
+  <a href="https://github.com/ssthil/human-steerkit">GitHub</a> ·
+  <a href="https://github.com/ssthil/human-steerkit/issues">Issues</a> ·
+  <a href="./CHANGELOG.md">Changelog</a>
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/human-steerkit"><img src="https://img.shields.io/npm/v/human-steerkit?style=flat-square&logo=npm&logoColor=white&label=npm&color=CB3837&labelColor=1a1a1a" alt="npm version"/></a>
+  <a href="https://www.npmjs.com/package/human-steerkit"><img src="https://img.shields.io/npm/dw/human-steerkit?style=flat-square&label=downloads&color=22c55e&labelColor=1a1a1a" alt="weekly downloads"/></a>
+  <a href="https://github.com/ssthil/human-steerkit/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/ssthil/human-steerkit/ci.yml?branch=main&style=flat-square&label=CI&labelColor=1a1a1a" alt="CI"/></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-3b82f6?style=flat-square&labelColor=1a1a1a" alt="License: MIT"/></a>
+</p>
+
+---
+
+## Stop Burning AI Credits on Wasted Context
+
+> Every wasted agent credit traces back to the same root causes: the agent re-discovers scope it was never told, scans files it did not need to read, debates architecture mid-task, and receives a vague prompt that turns into long back-and-forth.
+>
+> **human-steerkit** eliminates all of these *before* the agent starts — turning your project into a sequence of bounded, file-scoped prompts the agent can execute without guessing.
+
+- **`hsk init`**: Answer 6 questions. Lock scope before the agent starts — project goal, stack, budget, and a full task list pre-filled from your chosen template.
+- **`hsk next`**: Output a bounded, file-scoped prompt for the next pending task. The agent knows exactly what to read, what to build, and what not to touch.
+- **`hsk done` / `hsk spend`**: Track progress and credit cost task-by-task. No API connections — the developer stays in control of every decision.
 
 ## Demo
 

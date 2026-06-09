@@ -2,7 +2,7 @@
 
 <p align="center">
   <strong>Human steers. Agent builds.</strong><br/>
-  The CLI toolkit for developers who want AI agents to execute, not explore.
+  The CLI tool that structures your project for AI agents — before they start.
 </p>
 
 <p align="center">
@@ -30,6 +30,32 @@
 - **`hsk init`**: Answer 6 questions. Lock scope before the agent starts — project goal, stack, budget, and a full task list pre-filled from your chosen template.
 - **`hsk next`**: Output a bounded, file-scoped prompt for the next pending task. The agent knows exactly what to read, what to build, and what not to touch.
 - **`hsk done` / `hsk spend`**: Track progress and credit cost task-by-task. No API connections — the developer stays in control of every decision.
+
+## How the flow works
+
+```
+npm install -g human-steerkit
+         │
+         ▼
+    hsk init          ← lock scope: name, goal, stack, budget, tasks
+         │
+         ▼
+    hsk next          ← get a bounded, file-scoped prompt for task 1
+         │
+         ▼
+  paste into agent    ← Claude Code / Cursor / Copilot / Codex
+         │
+         ▼
+    hsk done 1        ← mark complete
+    hsk spend 1 8     ← record credits used
+         │
+         ▼
+    hsk next          ← repeat for task 2, 3 … n
+         │
+         ▼
+    hsk status        ← see progress + budget at any time
+    hsk report        ← full per-task breakdown when done
+```
 
 ## Demo
 

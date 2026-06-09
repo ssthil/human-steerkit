@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.1] - 2026-06-09
+
+### Changed
+- README: redesigned top section with text-based header, solid flat-square badges, and nav links row
+- README: intro rewritten as blockquote + bullet format (CrewAI-style) for faster scanning
+- README: added ASCII workflow flow diagram showing the full `init → next → done → repeat` loop
+- README: tagline updated from "CLI toolkit" to "CLI tool"
+
 ## [0.2.0] - 2026-06-08
 
 ### Added

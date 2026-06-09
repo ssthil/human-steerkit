@@ -1,6 +1,6 @@
 {
   "name": "human-steerkit",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Human steers. Agent builds. The AI agent starter kit.",
   "main": "dist/index.js",
   "bin": {
